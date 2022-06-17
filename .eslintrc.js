@@ -14,5 +14,8 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
-  rules: {},
+  rules: {
+    'react/jsx-filename-extension': [0],
+    'react/require-default-props': [0],
+  },
 };
