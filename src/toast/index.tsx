@@ -1,7 +1,7 @@
-import React, { HTMLAttributes } from 'react';
+import { HTMLAttributes } from 'react';
 import { styled } from 'goober';
 
-type IToastTypes = 'success' | 'error' | 'default';
+export type IToastTypes = 'success' | 'error' | 'default';
 
 interface IToastItem extends HTMLAttributes<HTMLDivElement> {
   type: IToastTypes;

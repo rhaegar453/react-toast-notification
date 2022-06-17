@@ -17,5 +17,7 @@ module.exports = {
   rules: {
     'react/jsx-filename-extension': [0],
     'react/require-default-props': [0],
+    'import/extensions': [0],
+    'import/no-unresolved': [0],
   },
 };
