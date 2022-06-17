@@ -1,6 +1,8 @@
-import React from 'react';
+import { value, styled } from 'goober';
 
-interface IToast{
+const ToastBase = styled.div`
+  padding: 6px 12px;
+  background-color: ${({ type }) => type};
+`;
 
-}
-
+export default ToastBase;
