@@ -21,5 +21,6 @@ module.exports = {
     'import/no-unresolved': [0],
     'react/jsx-props-no-spreading': [0],
     'import/no-extraneous-dependencies': [0],
+    'react/button-has-type': [1],
   },
 };

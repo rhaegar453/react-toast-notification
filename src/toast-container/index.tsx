@@ -2,7 +2,6 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 import { css } from '@emotion/css';
-import styled from '@emotion/styled';
 import { nanoid } from 'nanoid';
 import React, { useEffect, useMemo, useState } from 'react';
 import ToastItem from '../toastItem';
@@ -14,7 +13,7 @@ interface IToastTrigger {
   title: string;
   position?: ToastPositions;
   type: ToastTypes;
-  duration:number;
+  duration: number;
 }
 
 type ToastPositions = 'bottom' | 'top';
@@ -29,30 +28,43 @@ interface IDispatchEvent {
   detail: any;
 }
 
-const ToastContainerBase = styled.div`
-  position: absolute;
-  width: 100%;
-  height: 100%;
-`;
-const Container = styled.div`
-  text-align: center;
-`;
-
 const styles = {
-  wrapper: css`
+  topContainer: css`
     position: absolute;
-    width: 100%;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    top:10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
+    `,
+  bottomContainer: css`
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    right: 0;
+    bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
+    width: fit-content;
     `,
 };
 
 function ToastContainer() {
   const [toasts, setToasts] = useState<IToast[] | []>(toastData);
 
-  const handleAddToast = ({ title, position = 'bottom', duration }: IToast&{duration:number}) => {
+  const handleAddToast = ({
+    title,
+    position = 'bottom',
+    duration,
+  }: IToast & { duration: number }) => {
     const id = nanoid();
     setToasts((allToasts: IToast[]) => [{ title, id, position }, ...allToasts]);
     setTimeout(() => {
-      setToasts((toasts:IToast[]) => toasts.filter((toast) => toast.id !== id));
+      setToasts((toasts: IToast[]) => toasts.filter((toast) => toast.id !== id));
     }, duration);
   };
   useEffect(() => {
@@ -71,34 +83,27 @@ function ToastContainer() {
     return { ...a, [`${c.position}`]: [c] };
   }, {});
 
-  const positions = useMemo(() => calculatePositions(toasts), []);
+  const positions = useMemo(() => calculatePositions(toasts), [toasts]);
   return (
-    <ToastContainerBase>
-      <Container className={styles.wrapper} style={{ bottom: '10px' }}>
-        <Container>
-          {positions.bottom
-          && positions.bottom.map((item: IToast) => (
-            <div>
-              <ToastItem key={item.id}>{item.title}</ToastItem>
-            </div>
-          ))}
-        </Container>
-      </Container>
-      <Container className={styles.wrapper} style={{ top: '10px' }}>
-        <Container>
-          {positions.top
-          && positions.top.map((item: IToast) => (
-            <div>
-              <ToastItem key={item.id}>{item.title}</ToastItem>
-            </div>
-          ))}
-        </Container>
-      </Container>
-    </ToastContainerBase>
+    <div>
+      <div className={styles.topContainer}>
+        {positions.top
+        && positions.top.map((item: IToast) => (
+          <ToastItem key={item.id}>{item.title}</ToastItem>
+        ))}
+      </div>
+      <div className={styles.bottomContainer}>
+        {positions.bottom
+        && positions.bottom.map((item: IToast) => (
+          <ToastItem key={item.id}>{item.title}</ToastItem>
+        ))}
+      </div>
+    </div>
   );
 }
 
 const dispatchEvent = ({ eventName, detail }: IDispatchEvent) => {
+  console.log('Dispatching the toast message');
   const event = new CustomEvent(eventName, { detail });
   document.dispatchEvent(event);
 };
@@ -108,7 +113,10 @@ export const toast: Record<ToastTypes, (data: IToastTrigger) => void> = {
     dispatchEvent({
       eventName: 'add_toast',
       detail: {
-        title, position, duration, type: 'success',
+        title,
+        position,
+        duration,
+        type: 'success',
       },
     });
   },
@@ -116,7 +124,10 @@ export const toast: Record<ToastTypes, (data: IToastTrigger) => void> = {
     dispatchEvent({
       eventName: 'add_toast',
       detail: {
-        title, position, duration, type: 'error',
+        title,
+        position,
+        duration,
+        type: 'error',
       },
     });
   },
@@ -124,7 +135,10 @@ export const toast: Record<ToastTypes, (data: IToastTrigger) => void> = {
     dispatchEvent({
       eventName: 'add_toast',
       detail: {
-        title, position, duration, type: 'default',
+        title,
+        position,
+        duration,
+        type: 'default',
       },
     });
   },
@@ -132,7 +146,10 @@ export const toast: Record<ToastTypes, (data: IToastTrigger) => void> = {
     dispatchEvent({
       eventName: 'add_toast',
       detail: {
-        title, position, type: 'default', duration,
+        title,
+        position,
+        type: 'default',
+        duration,
       },
     });
   },
