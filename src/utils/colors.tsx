@@ -2,7 +2,7 @@ import { IToastTypes } from '../toast';
 
 const COLORS = {
   danger: '#DD766F',
-  success: '#92DD6F',
+  success: '#4AAE1B',
   white: '#ffffff',
   dark: '#333333',
 };

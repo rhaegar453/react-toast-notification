@@ -1,15 +1,19 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import { setup } from 'goober';
 import ToastItem from '../src/toast';
-
-setup(React.createElement);
 
 const toast: Meta = {
   title: 'Toast/ToastItem',
   component: ToastItem,
-  argTypes: {},
+  argTypes: {
+    type: {
+      options: ['success', 'error', 'default'],
+      type: 'select',
+    },
+  },
 };
 
 export default toast;
-export const withToastItem = (args: any) => <ToastItem {...args} />;
+export const withToastItem = (args: any) => (
+  <ToastItem {...args}>Hello World this is the toast item</ToastItem>
+);

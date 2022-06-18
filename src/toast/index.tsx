@@ -1,18 +1,21 @@
-import { HTMLAttributes } from 'react';
-import { styled } from 'goober';
+import React from 'react';
+import styled from '@emotion/styled';
 import { BG_COLORS, TEXT_COLORS } from '../utils/colors';
 
-export type IToastTypes = 'success' | 'error' | 'default';
+type IToastType = 'error' | 'success' | 'default';
 
-interface IToastItem extends HTMLAttributes<HTMLDivElement> {
-  type: IToastTypes;
+interface IToastItem {
+  type: IToastType;
 }
 
 const ToastItem = styled.div<IToastItem>`
-  padding: 6px 12px;
+  padding: 12px 20px;
   border-radius: 5px;
-  background-color: ${({ type }) => BG_COLORS[type]};
-  color: ${({ type }) => TEXT_COLORS[type]};
+  border: 1px solid #e8e8e8;
+  background-color: ${({ type = 'default' }) => BG_COLORS[type]};
+  color: ${({ type = 'default' }) => TEXT_COLORS[type]};
+  text-align: center;
+  display: inline-block;
 `;
 
 export default ToastItem;

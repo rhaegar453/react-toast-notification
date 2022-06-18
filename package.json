@@ -80,6 +80,6 @@
     "typescript": "^4.7.3"
   },
   "dependencies": {
-    "goober": "^2.1.9"
+    "@emotion/css": "^11.9.0"
   }
 }
