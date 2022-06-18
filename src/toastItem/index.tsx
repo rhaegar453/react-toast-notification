@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 /* eslint-disable react/no-unused-prop-types */
-import styled from '@emotion/styled';
 import { keyframes } from '@emotion/css';
+import styled from '@emotion/styled';
 import { BG_COLORS, TEXT_COLORS } from '../utils/colors';
 
 const animation = keyframes`
@@ -32,6 +32,7 @@ const ToastItem = styled.div<IToastItem>`
   text-align: center;
   display: inline-block;
   animation: ${animation} 1s cubic-bezier(0.75, -0.24, 0.27, 1.31);
+  cursor: default;
 `;
 
 export default ToastItem;
