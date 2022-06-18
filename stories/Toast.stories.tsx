@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta } from '@storybook/react';
-import ToastItem from '../src/toast';
+import ToastItem from '../src/toastItem';
 
 const toast: Meta = {
   title: 'Toast/ToastItem',
