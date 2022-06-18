@@ -1,3 +1,6 @@
+/* eslint-disable no-undef */
+/* eslint-disable react/no-unused-prop-types */
+import React, { CSSProperties, HTMLAttributes } from 'react';
 import styled from '@emotion/styled';
 import { keyframes } from '@emotion/css';
 import { BG_COLORS, TEXT_COLORS } from '../utils/colors';
@@ -18,7 +21,7 @@ to{
 type IToastType = 'error' | 'success' | 'default';
 
 interface IToastItem {
-  type: IToastType;
+  type?: IToastType;
 }
 
 const ToastItem = styled.div<IToastItem>`
