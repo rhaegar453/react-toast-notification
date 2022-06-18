@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-use-before-define */
 import { css } from '@emotion/css';
@@ -13,6 +14,7 @@ interface IToastTrigger {
   title: string;
   position?: ToastPositions;
   type: ToastTypes;
+  duration:number;
 }
 
 type ToastPositions = 'bottom' | 'top';
@@ -45,9 +47,13 @@ const styles = {
 
 function ToastContainer() {
   const [toasts, setToasts] = useState<IToast[] | []>(toastData);
-  const handleAddToast = ({ title, position = 'bottom-center' }: IToast) => {
+
+  const handleAddToast = ({ title, position = 'bottom', duration }: IToast&{duration:number}) => {
     const id = nanoid();
     setToasts((allToasts: IToast[]) => [{ title, id, position }, ...allToasts]);
+    setTimeout(() => {
+      setToasts((toasts:IToast[]) => toasts.filter((toast) => toast.id !== id));
+    }, duration);
   };
   useEffect(() => {
     document.addEventListener('add_toast', (e) => {
@@ -98,28 +104,36 @@ const dispatchEvent = ({ eventName, detail }: IDispatchEvent) => {
 };
 
 export const toast: Record<ToastTypes, (data: IToastTrigger) => void> = {
-  success: ({ title, position }) => {
+  success: ({ title, position, duration = 200 }) => {
     dispatchEvent({
       eventName: 'add_toast',
-      detail: { title, position, type: 'success' },
+      detail: {
+        title, position, duration, type: 'success',
+      },
     });
   },
-  error: ({ title, position }) => {
+  error: ({ title, position, duration = 200 }) => {
     dispatchEvent({
       eventName: 'add_toast',
-      detail: { title, position, type: 'error' },
+      detail: {
+        title, position, duration, type: 'error',
+      },
     });
   },
-  default: ({ title, position }) => {
+  default: ({ title, position, duration = 200 }) => {
     dispatchEvent({
       eventName: 'add_toast',
-      detail: { title, position, type: 'default' },
+      detail: {
+        title, position, duration, type: 'default',
+      },
     });
   },
-  show: ({ title, position }) => {
+  show: ({ title, position, duration = 200 }) => {
     dispatchEvent({
       eventName: 'add_toast',
-      detail: { title, position, type: 'default' },
+      detail: {
+        title, position, type: 'default', duration,
+      },
     });
   },
 };
