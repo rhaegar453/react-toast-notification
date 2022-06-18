@@ -1,4 +1,3 @@
-import React from 'react';
 import styled from '@emotion/styled';
 import { BG_COLORS, TEXT_COLORS } from '../utils/colors';
 
