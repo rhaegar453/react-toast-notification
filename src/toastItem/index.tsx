@@ -26,6 +26,7 @@ interface IToastItem {
 const ToastItem = styled.div<IToastItem>`
   padding: 12px 20px;
   border-radius: 5px;
+  opacity: 0.6;
   border: 1px solid #e8e8e8;
   background-color: ${({ type = 'default' }) => BG_COLORS[type]};
   color: ${({ type = 'default' }) => TEXT_COLORS[type]};

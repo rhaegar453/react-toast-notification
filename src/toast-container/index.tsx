@@ -68,8 +68,9 @@ function ToastContainer() {
     }, duration);
   };
   useEffect(() => {
-    document.addEventListener('add_toast', (e) => {
-      handleAddToast(e.detail);
+    document.addEventListener('add_toast', (e:Event) => {
+      const { title, position, duration } = e.detail;
+      handleAddToast({ title, position, duration });
     });
     return () => {
       document.removeEventListener('add_toast', () => {});
@@ -103,7 +104,6 @@ function ToastContainer() {
 }
 
 const dispatchEvent = ({ eventName, detail }: IDispatchEvent) => {
-  console.log('Dispatching the toast message');
   const event = new CustomEvent(eventName, { detail });
   document.dispatchEvent(event);
 };
